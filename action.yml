@@ -1,0 +1,30 @@
+name: 'Call GitHub Action Workflow'
+description: 'This action will call a GH Action Workflow'
+inputs:
+  access-token:
+    description: 'GitHub Registry Package Access Token'
+    required: true
+  org:
+    description: 'Organization'
+    required: true
+    default: 'unosquare'
+  repo:
+    description: 'Repo'
+    required: true
+  id:
+    description: 'Workflow Id'
+    required: true
+  ref:
+    description: 'Branch ref'
+    required: true
+    default: 'dev'
+    
+runs:
+  using: 'composite'
+  steps: 
+    run: |
+          curl --request POST \
+          --url 'https://api.github.com/repos/${{ input.org }}/${{ input.repo }}/actions/workflows/${{ input.workflow }}/dispatches' \
+          --header "authorization: Bearer ${{ input.access-token }}" \
+          --data '{"ref": "${{ input.ref }}"}'
+    shell: bash
