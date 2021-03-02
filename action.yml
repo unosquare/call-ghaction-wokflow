@@ -22,9 +22,5 @@ inputs:
 runs:
   using: 'composite'
   steps: 
-    run: |
-          curl --request POST \
-          --url 'https://api.github.com/repos/${{ input.org }}/${{ input.repo }}/actions/workflows/${{ input.workflow }}/dispatches' \
-          --header "authorization: Bearer ${{ input.access-token }}" \
-          --data '{"ref": "${{ input.ref }}"}'
+    run: curl --request POST --url 'https://api.github.com/repos/${{ input.org }}/${{ input.repo }}/actions/workflows/${{ input.workflow }}/dispatches' --header "authorization: Bearer ${{ input.access-token }}" --data '{"ref": "${{ input.ref }}"}'
     shell: bash
